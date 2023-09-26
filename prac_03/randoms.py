@@ -12,7 +12,7 @@ import random
 # 2, therefore it could not have produced a 4 as it did not follow the step pattern
 
 # 3. What did you see on line 3? What was the smallest number you could have seen? What was the largest?
-# The code printed a random floating number. The smallest number could have been 2.5,
+# The code printed a random floating number (such as 4.922169160882474). The smallest number could have been 2.5,
 # largest, 5.5
 
 random_number = random.randint(1, 100)
