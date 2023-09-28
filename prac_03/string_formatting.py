@@ -34,7 +34,7 @@ for i, number in enumerate(numbers, 1):
 
 # Things to do (Completed)
 
-print(f"{year} {name} for about {cost}")
+print(f"{year} {name} for about ${cost:,.0f}!")
 
 for i in range(0, 151, 50):
     print(f"{i:>3}")
