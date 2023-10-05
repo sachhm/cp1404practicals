@@ -20,7 +20,8 @@ def get_data():
         line = line.strip()  # Remove the \n
         parts = line.split(',')  # Separate the data into its parts
         parts[2] = int(parts[2])  # Make the number an integer (ignore PyCharm's warning)
-        subject_details.append(line)
+        list = [parts[0], parts[1], parts[2]]
+        subject_details.append(list)
     input_file.close()
 
     return subject_details
@@ -29,8 +30,7 @@ def get_data():
 def format_subject_details(subject_details):
     formatted_subject_details = []
     for subject in subject_details:
-        parts = subject.split(',')
-        statement = f"{parts[0]} is taught by {parts[1]} and has {parts[2]} students"
+        statement = f"{subject[0]} is taught by {subject[1]} and has {subject[2]} students"
         formatted_subject_details.append(statement)
     return formatted_subject_details
 
