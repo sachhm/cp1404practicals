@@ -2,10 +2,11 @@
 CP1404/CP5632 Practical 04
 List exercises
 """
+NUMBER_OF_INPUTS = 5
 
 # Write a program that prompts the user for 5 numbers and then stores each of these in a list called numbers.
 numbers = []
-for i in range(0, 5):
+for i in range(0, NUMBER_OF_INPUTS):
     number_input = int(input("Number: "))
     numbers.append(number_input)
 
