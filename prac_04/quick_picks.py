@@ -14,6 +14,7 @@ random_integers = []
 for i in range(0, number_of_quick_picks):
     for j in range(0, NUMBER_OF_RANDOM_INTEGERS):
         generated_integer = random.randint(MINIMUM, MAXIMUM)
+
         if generated_integer in random_integers:
             generated_integer = random.randint(MINIMUM, MAXIMUM)
 
