@@ -25,7 +25,7 @@ numbers[0] = "ten"
 numbers[6] = 1
 
 # 3.
-print(numbers[:-2])
+print(numbers[2:])
 
 # 4.
 print(9 in numbers)
