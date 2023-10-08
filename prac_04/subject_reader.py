@@ -20,8 +20,8 @@ def get_data():
         line = line.strip()  # Remove the \n
         parts = line.split(',')  # Separate the data into its parts
         parts[2] = int(parts[2])  # Make the number an integer (ignore PyCharm's warning)
-        list = [parts[0], parts[1], parts[2]]
-        subject_details.append(list)
+        formatted_list = [parts[0], parts[1], parts[2]]
+        subject_details.append(formatted_list)
     input_file.close()
 
     return subject_details
