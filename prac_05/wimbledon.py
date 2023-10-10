@@ -10,6 +10,7 @@ CHAMPION_INDEX = 2
 
 
 def main():
+    """Main program for processing and returning Wimbledon records"""
     records = load_records()
     champions, countries = process_data(records)
     display_information(champions, countries)
