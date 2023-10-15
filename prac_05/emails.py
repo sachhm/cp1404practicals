@@ -8,7 +8,7 @@ Actual: 36 minutes
 
 def main():
     """Main program to store users emails and names in a dictionary"""
-    emails_to_names = {}
+    email_to_name = {}
     email = input("Email: ").lower()
     while email != "":
         name = extract_name(email)
@@ -17,12 +17,12 @@ def main():
 
         if name_check != "" and name_check != "y":
             name = input("Name: ")
-        emails_to_names[email] = name
+        email_to_name[email] = name
 
         email = input("Email: ").lower()
 
     print()
-    for email, name in emails_to_names.items():
+    for email, name in email_to_name.items():
         print(f"{name} ({email})")
 
 
