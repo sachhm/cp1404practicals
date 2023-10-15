@@ -2,7 +2,7 @@
 CP1404/CP5632 Practical 05
 Wimbledon
 Estimate: 20 minutes
-Actual:  minutes
+Actual: 55 minutes
 """
 FILENAME = "wimbledon.csv"
 COUNTRY_INDEX = 1

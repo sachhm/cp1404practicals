@@ -2,7 +2,7 @@
 CP1404/CP5632 Practical 05
 Emails
 Estimate: 25 minutes
-Actual:  minutes
+Actual: 36 minutes
 """
 
 
