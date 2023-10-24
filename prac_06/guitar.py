@@ -3,7 +3,7 @@ CP1404/CP5632 Practical
 Guitar
 
 Expected Time: 30 Minutes
-Actual Time: 30 Minutes
+Actual Time: 27 Minutes
 """
 CURRENT_YEAR = 2023
 VINTAGE_THRESHOLD = 50
@@ -25,7 +25,7 @@ class Guitar:
 
     def __str__(self):
         """Return Guitar as string"""
-        return f"{self.name} ({self.year})  :   ${self.cost:,.2f}"
+        return f"{self.name} ({self.year}) : ${self.cost:,.2f}"
 
     def get_age(self):
         """Get age of Guitar given year"""
