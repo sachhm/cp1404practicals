@@ -3,7 +3,7 @@ CP1404/CP5632 Practical
 Guitars
 
 Expected Time: 40 Minutes
-Actual Time:  Minutes
+Actual Time:  20 Minutes
 """
 from prac_06.guitar import Guitar
 
