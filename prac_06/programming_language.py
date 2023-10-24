@@ -23,7 +23,9 @@ class ProgrammingLanguage:
         self.year = year
 
     def __str__(self):
+        """Return Programming Language as string"""
         return f"{self.name}, {self.typing} Typing, Reflection={self.reflection}, First appeared in {self.year}"
+
     def is_dynamic(self):
         """Return whether a Programming Language is Dynamic or not"""
         return self.typing == "Dynamic"
