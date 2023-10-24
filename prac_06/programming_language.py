@@ -3,7 +3,7 @@ CP1404/CP5632 Practical
 Programming Languages
 
 Expected Time: 25 Minutes
-Actual Time:
+Actual Time: 30 Minutes
 """
 
 
