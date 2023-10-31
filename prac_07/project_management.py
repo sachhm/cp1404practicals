@@ -51,7 +51,7 @@ def main():
             print("Invalid input, please try again")
         print(MENU)
         menu_choice = input(">>>").upper()
-
+    save_projects(filename, projects)
     print("Thank you for using custom-built project management software.")
 
 
@@ -63,15 +63,21 @@ def load_projects(filename):
         for line in in_file:
             line = line.strip("\n")
             parts = line.split("\t")
+            date = datetime.datetime.strptime(parts[PROJECT_DATE_INDEX], "%d/%m/%Y").date()
             project = Project(parts[PROJECT_NAME_INDEX], parts[PROJECT_DATE_INDEX], parts[PROJECT_PRIORITY_INDEX],
                               float(parts[PROJECT_EST_COST_INDEX]), int(parts[PROJECT_COMPLETION_INDEX]))
             projects.append(project)
     return projects
 
 
-def save_projects(filename):
+def save_projects(filename, projects):
     """Save projects to a given filename"""
-    pass
+    with open(filename, "w") as out_file:
+        out_file.write("")  # clear file before new inputs
+        out_file.write(f"Name\tStart Date\tPriority\tCost Estimate\tCompletion Percentage\n")
+        for project in projects:
+            line = f"{project.name}\t{[project.start_date]}\t{project.priority}\t{project.cost_estimate}\t{project.completion_percentage}\n"
+            out_file.write(line)
 
 
 def display_projects(projects):
@@ -97,6 +103,9 @@ def add_new_project(projects):
     print("Let's add a new project")
     name = input("Name: ")
     start_date = input("Start date (dd/mm/yy): ")
+    date = datetime.datetime.strptime(start_date, "%d/%m/%Y").date()
+    print(f"That day is/was {date.strftime('%A')}")
+    print(date.strftime("%d/%m/%Y"))
     priority = input("Priority: ")
     cost_estimate = input("Cost estimate: ")
     completion_percentage = input("Percent complete: ")
@@ -116,8 +125,9 @@ def update_project(projects):
     new_priority = input("New priority: ")
 
     if new_percentage != "":
-        chosen_project.update_percentage(int(new_percentage))
+        chosen_project.completion_percentage = int(new_percentage)
     if new_priority != "":
-        chosen_project.update_priority(int(new_priority))
+        chosen_project.priority = int(new_priority)
+
 
 main()
