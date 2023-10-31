@@ -22,3 +22,5 @@ class Project:
         """Return Project details in a formatted string"""
         return (f"{self.name}, start:{self.start_date}, priority {self.priority}, estimate: {self.cost_estimate}, "
                 f"completion; {self.completion_percentage}%")
+
+    def
