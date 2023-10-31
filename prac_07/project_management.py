@@ -13,8 +13,7 @@ MENU = """- (L)oad projects
 - (F)ilter projects by date
 - (A)dd new project  
 - (U)pdate project
-- (Q)uit
-"""
+- (Q)uit"""
 
 
 def main():
@@ -23,7 +22,8 @@ def main():
     menu_choice = input(">>>").upper()
     while menu_choice != "Q":
         if menu_choice == "L":
-            filename = input("Filename: ")
+            # filename = input("Filename: ")
+            filename = "projects.txt"
             print(load_projects(filename))
         elif menu_choice == "S":
             filename = input("Filename: ")
@@ -38,8 +38,10 @@ def main():
             pass
         else:
             print("Invalid input, please try again")
-            print(MENU)
-            menu_choice = input(">>>").upper()
+        print(MENU)
+        menu_choice = input(">>>").upper()
+
+    print("Thank you for using custom-built project management software.")
 
 
 def load_projects(filename):
@@ -47,7 +49,7 @@ def load_projects(filename):
     projects = []
     with open(filename, "r") as in_file:
         for line in in_file:
-            print(line)
+            line.split("\t")
             projects.append(line)
     return projects
 
