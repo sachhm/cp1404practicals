@@ -44,9 +44,9 @@ def main():
         elif menu_choice == "F":
             pass
         elif menu_choice == "A":
-            pass
+            add_new_project(projects)
         elif menu_choice == "U":
-            pass
+            update_project(projects)
         else:
             print("Invalid input, please try again")
         print(MENU)
@@ -100,14 +100,24 @@ def add_new_project(projects):
     priority = input("Priority: ")
     cost_estimate = input("Cost estimate: ")
     completion_percentage = input("Percent complete: ")
-
     new_project = Project(name, start_date, priority, cost_estimate, completion_percentage)
     projects.append(new_project)
 
 
-def update_project():
+def update_project(projects):
     """Modify completion or priority of an established project"""
-    pass
+    for project in projects:
+        print(f"{projects.index(project)} {project}")
 
+    project_choice_index = int(input("Project choice: "))
+    chosen_project = projects[project_choice_index]
+    print(chosen_project)
+    new_percentage = input("New percentage: ")
+    new_priority = input("New priority: ")
+
+    if new_percentage != "":
+        chosen_project.update_percentage(int(new_percentage))
+    if new_priority != "":
+        chosen_project.update_priority(int(new_priority))
 
 main()
