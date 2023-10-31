@@ -2,6 +2,7 @@
 CP1404/CP5632 Practical
 Guitar
 
+(Last week's recording)
 Expected Time: 30 Minutes
 Actual Time: 27 Minutes
 """
@@ -26,6 +27,14 @@ class Guitar:
     def __str__(self):
         """Return Guitar as string"""
         return f"{self.name} ({self.year}) : ${self.cost:,.2f}"
+
+    def __repr__(self):
+        """Return Guitar as string for list printing"""
+        return f"{self.name} ({self.year}) : ${self.cost:,.2f}"
+
+    def __lt__(self, other):
+        """Compare guitars by year"""
+        return self.year < other.year
 
     def get_age(self):
         """Get age of Guitar given year"""
