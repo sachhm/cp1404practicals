@@ -92,9 +92,17 @@ def filter_projects_by_date(date):
     pass
 
 
-def add_new_project():
+def add_new_project(projects):
     """Add a new project to memory given inputs"""
-    pass
+    print("Let's add a new project")
+    name = input("Name: ")
+    start_date = input("Start date (dd/mm/yy): ")
+    priority = input("Priority: ")
+    cost_estimate = input("Cost estimate: ")
+    completion_percentage = input("Percent complete: ")
+
+    new_project = Project(name, start_date, priority, cost_estimate, completion_percentage)
+    projects.append(new_project)
 
 
 def update_project():
