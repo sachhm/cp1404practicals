@@ -21,6 +21,12 @@ class Project:
     def __str__(self):
         """Return Project details in a formatted string"""
         return (f"{self.name}, start:{self.start_date}, priority {self.priority}, estimate: {self.cost_estimate}, "
-                f"completion; {self.completion_percentage}%")
+                f"completion: {self.completion_percentage}%")
 
-    def
+    def __repr__(self):
+        """Return Project details in a formatted string for lists"""
+        return (f"{self.name}, start:{self.start_date}, priority {self.priority}, estimate: {self.cost_estimate}, "
+                f"completion: {self.completion_percentage}%")
+
+    def is_complete(self):
+        return self.completion_percentage == 100

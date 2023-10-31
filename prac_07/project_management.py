@@ -8,6 +8,8 @@ Actual:
 """
 import datetime
 
+from prac_07.project import Project
+
 PROJECT_NAME_INDEX = 0
 PROJECT_DATE_INDEX = 1
 PROJECT_PRIORITY_INDEX = 2
@@ -25,13 +27,14 @@ MENU = """- (L)oad projects
 
 def main():
     """Main program for Project Management"""
-    projects = []
+    filename = "projects.txt"
+    projects = load_projects(filename)
+
     print(MENU)
     menu_choice = input(">>>").upper()
     while menu_choice != "Q":
         if menu_choice == "L":
-            # filename = input("Filename: ")
-            filename = "projects.txt"
+            filename = input("Filename: ")
             projects = load_projects(filename)
         elif menu_choice == "S":
             filename = input("Filename: ")
@@ -60,8 +63,8 @@ def load_projects(filename):
         for line in in_file:
             line = line.strip("\n")
             parts = line.split("\t")
-            project = [parts[PROJECT_NAME_INDEX], parts[PROJECT_DATE_INDEX], parts[PROJECT_PRIORITY_INDEX],
-                       parts[PROJECT_EST_COST_INDEX], parts[PROJECT_COMPLETION_INDEX]]
+            project = Project(parts[PROJECT_NAME_INDEX], parts[PROJECT_DATE_INDEX], parts[PROJECT_PRIORITY_INDEX],
+                              float(parts[PROJECT_EST_COST_INDEX]), int(parts[PROJECT_COMPLETION_INDEX]))
             projects.append(project)
     return projects
 
@@ -73,10 +76,15 @@ def save_projects(filename):
 
 def display_projects(projects):
     """Display incomplete and complete projects, sorted by priority"""
-    # TODO: FINISH THIS
-    completed_projects = [project for project in projects if project[PROJECT_COMPLETION_INDEX]]
+    completed_projects = [project for project in projects if project.is_complete()]
+    incomplete_projects = [project for project in projects if not project.is_complete()]
+
     print("Incomplete projects:")
-    print("Completed projects:")
+    for project in incomplete_projects:
+        print(f"\t{project}")
+    print("Completed Projects: ")
+    for project in completed_projects:
+        print(f"\t{project}")
 
 
 def filter_projects_by_date(date):
