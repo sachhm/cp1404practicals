@@ -1,10 +1,6 @@
 """
 CP1404/CP5632 Practical
 Guitar
-
-(Last week's recording)
-Expected Time: 30 Minutes
-Actual Time: 27 Minutes
 """
 CURRENT_YEAR = 2023
 VINTAGE_THRESHOLD = 50

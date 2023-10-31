@@ -2,8 +2,6 @@
 CP1404/CP5632 Practical
 My Guitars
 
-Expected Time: 30 Minutes
-Actual Time: Minutes
 """
 import csv
 
