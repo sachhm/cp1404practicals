@@ -64,7 +64,8 @@ def load_projects(filename):
         for line in in_file:
             line = line.strip("\n")
             parts = line.split("\t")
-            project = Project(parts[PROJECT_NAME_INDEX], parts[PROJECT_DATE_INDEX], parts[PROJECT_PRIORITY_INDEX],
+            project_start_date = datetime.datetime.strptime(parts[PROJECT_DATE_INDEX], "%d/%m/%Y").date()
+            project = Project(parts[PROJECT_NAME_INDEX], project_start_date, parts[PROJECT_PRIORITY_INDEX],
                               float(parts[PROJECT_EST_COST_INDEX]), int(parts[PROJECT_COMPLETION_INDEX]))
             projects.append(project)
     return projects
@@ -76,6 +77,7 @@ def save_projects(filename, projects):
         out_file.write("")  # clear file before new inputs
         out_file.write(f"Name\tStart Date\tPriority\tCost Estimate\tCompletion Percentage\n")
         for project in projects:
+            project.start_date = project.start_date.strftime("%d/%m/%Y")
             line = (f"{project.name}\t{project.start_date}\t{project.priority}\t{project.cost_estimate}\t"
                     f"{project.completion_percentage}\n")
             out_file.write(line)
@@ -100,13 +102,11 @@ def get_valid_date_input(prompt, error_message):
     while not is_valid_input:
         try:
             date_input = input(prompt)
-            if date_input != datetime.datetime.strptime(date_input, "%d/%m/%Y"):
-                print(error_message)
-            else:
-                is_valid_input = True
-                return date_input
+            date = datetime.datetime.strptime(date_input, "%d/%m/%Y").date()
+            is_valid_input = True
+            return date
         except ValueError:
-            print("Invalid (not an date)")
+            print(error_message)
 
 
 def display_projects(incomplete_projects, completed_projects):
@@ -128,18 +128,10 @@ def sort_project_completion_status(projects):
 
 def filter_projects_by_date(projects):
     """Return a list of projects sorted by date that start after a given date"""
-    date_string = input("Show projects that start after date (dd/mm/yy): ")  # e.g., "30/9/2022"
-    date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
+    cutoff_date = get_valid_date_input("Show projects that start after date (dd/mm/yy): ",
+                                       "Not a valid date, please try again")
 
-    # convert to datetime before comparison
-    for project in projects:
-        project.start_date = datetime.datetime.strptime(project.start_date, "%d/%m/%Y").date()
-
-    filtered_projects = [project for project in projects if project.start_date >= date]
-
-    # convert back to string after comparison
-    for project in projects:
-        project.start_date = project.start_date.strftime("%d/%m/%Y")
+    filtered_projects = [project for project in projects if project.start_date >= cutoff_date]
 
     for project in filtered_projects:
         print(project)
@@ -149,10 +141,11 @@ def add_new_project(projects):
     """Add a new project to memory given inputs"""
     print("Let's add a new project")
     name = input("Name: ")
-    start_date = get_valid_date_input("Start date (dd/mm/yy): ", )
+    start_date = get_valid_date_input("Start date (dd/mm/yy): ", "Invalid format, please try again")
+    print(type(start_date))
     priority = get_valid_number_input("Priority: ", "Cannot have negative priority number", 0)
-    cost_estimate = input("Cost estimate: $", "Cannot have negative cost", 0)
-    completion_percentage = input("Percent complete: ", "Cannot have negative percentage", 0)
+    cost_estimate = get_valid_number_input("Cost estimate: $", "Cannot have negative cost", 0)
+    completion_percentage = get_valid_number_input("Percent complete: ", "Cannot have negative percentage", 0)
     new_project = Project(name, start_date, priority, cost_estimate, completion_percentage)
     projects.append(new_project)
 
