@@ -2,9 +2,10 @@
 CP1404/CP5632 Practical
 Project
 
-Estimated: 1 hour
+Estimated: 2 hour
 Actual:
 """
+import datetime
 
 
 class Project:
@@ -27,6 +28,9 @@ class Project:
         """Return Project details in a formatted string for lists"""
         return (f"{self.name}, start:{self.start_date}, priority {self.priority}, estimate: {self.cost_estimate}, "
                 f"completion: {self.completion_percentage}%")
+
+    def __lt__(self, other):
+        return self.start_date < other.start_date
 
     def is_complete(self):
         return self.completion_percentage == 100

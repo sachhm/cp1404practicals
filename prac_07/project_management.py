@@ -38,11 +38,11 @@ def main():
             projects = load_projects(filename)
         elif menu_choice == "S":
             filename = input("Filename: ")
-            save_projects(filename)
+            save_projects(filename, projects)
         elif menu_choice == "D":
             display_projects(projects)
         elif menu_choice == "F":
-            pass
+            filter_projects_by_date(projects)
         elif menu_choice == "A":
             add_new_project(projects)
         elif menu_choice == "U":
@@ -63,7 +63,6 @@ def load_projects(filename):
         for line in in_file:
             line = line.strip("\n")
             parts = line.split("\t")
-            date = datetime.datetime.strptime(parts[PROJECT_DATE_INDEX], "%d/%m/%Y").date()
             project = Project(parts[PROJECT_NAME_INDEX], parts[PROJECT_DATE_INDEX], parts[PROJECT_PRIORITY_INDEX],
                               float(parts[PROJECT_EST_COST_INDEX]), int(parts[PROJECT_COMPLETION_INDEX]))
             projects.append(project)
@@ -76,7 +75,8 @@ def save_projects(filename, projects):
         out_file.write("")  # clear file before new inputs
         out_file.write(f"Name\tStart Date\tPriority\tCost Estimate\tCompletion Percentage\n")
         for project in projects:
-            line = f"{project.name}\t{[project.start_date]}\t{project.priority}\t{project.cost_estimate}\t{project.completion_percentage}\n"
+            line = (f"{project.name}\t{project.start_date}\t{project.priority}\t{project.cost_estimate}\t"
+                    f"{project.completion_percentage}\n")
             out_file.write(line)
 
 
@@ -93,9 +93,23 @@ def display_projects(projects):
         print(f"\t{project}")
 
 
-def filter_projects_by_date(date):
+def filter_projects_by_date(projects):
     """Return a list of projects sorted by date that start after a given date"""
-    pass
+    date_string = input("Show projects that start after date (dd/mm/yy): ")  # e.g., "30/9/2022"
+    date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
+
+    # convert to datetime before comparison
+    for project in projects:
+        project.start_date = datetime.datetime.strptime(project.start_date, "%d/%m/%Y").date()
+
+    filtered_projects = [project for project in projects if project.start_date >= date]
+
+    # convert back to string after comparison
+    for project in projects:
+        project.start_date = project.start_date.strftime("%d/%m/%Y")
+
+    for project in filtered_projects:
+        print(project)
 
 
 def add_new_project(projects):
@@ -103,11 +117,8 @@ def add_new_project(projects):
     print("Let's add a new project")
     name = input("Name: ")
     start_date = input("Start date (dd/mm/yy): ")
-    date = datetime.datetime.strptime(start_date, "%d/%m/%Y").date()
-    print(f"That day is/was {date.strftime('%A')}")
-    print(date.strftime("%d/%m/%Y"))
     priority = input("Priority: ")
-    cost_estimate = input("Cost estimate: ")
+    cost_estimate = input("Cost estimate: $")
     completion_percentage = input("Percent complete: ")
     new_project = Project(name, start_date, priority, cost_estimate, completion_percentage)
     projects.append(new_project)
