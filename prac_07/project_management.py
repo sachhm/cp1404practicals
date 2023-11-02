@@ -83,7 +83,7 @@ def save_projects(filename, projects):
             out_file.write(line)
 
 
-def get_valid_number_input(prompt, error_message, threshold):
+def get_valid_float_input(prompt, error_message, threshold):
     is_valid_input = False
     while not is_valid_input:
         try:
@@ -95,6 +95,20 @@ def get_valid_number_input(prompt, error_message, threshold):
                 return num_input
         except ValueError:
             print("Invalid (not an float)")
+
+
+def get_valid_int_input(prompt, error_message, threshold):
+    is_valid_input = False
+    while not is_valid_input:
+        try:
+            num_input = int(input(prompt))
+            if num_input < threshold:
+                print(error_message)
+            else:
+                is_valid_input = True
+                return num_input
+        except ValueError:
+            print("Invalid (not an integer)")
 
 
 def get_valid_date_input(prompt, error_message):
@@ -143,9 +157,9 @@ def add_new_project(projects):
     name = input("Name: ")
     start_date = get_valid_date_input("Start date (dd/mm/yy): ", "Invalid format, please try again")
     print(type(start_date))
-    priority = get_valid_number_input("Priority: ", "Cannot have negative priority number", 0)
-    cost_estimate = get_valid_number_input("Cost estimate: $", "Cannot have negative cost", 0)
-    completion_percentage = get_valid_number_input("Percent complete: ", "Cannot have negative percentage", 0)
+    priority = get_valid_int_input("Priority: ", "Cannot have negative priority number", 0)
+    cost_estimate = get_valid_float_input("Cost estimate: $", "Cannot have negative cost", 0)
+    completion_percentage = get_valid_int_input("Percent complete: ", "Cannot have negative percentage", 0)
     new_project = Project(name, start_date, priority, cost_estimate, completion_percentage)
     projects.append(new_project)
 
