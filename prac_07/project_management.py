@@ -33,6 +33,7 @@ def main():
     print(MENU)
     menu_choice = input(">>>").upper()
     while menu_choice != "Q":
+        incomplete_projects, completed_projects = sort_project_completion_status(projects)
         if menu_choice == "L":
             filename = input("Filename: ")
             projects = load_projects(filename)
@@ -40,7 +41,7 @@ def main():
             filename = input("Filename: ")
             save_projects(filename, projects)
         elif menu_choice == "D":
-            display_projects(projects)
+            display_projects(incomplete_projects, completed_projects)
         elif menu_choice == "F":
             filter_projects_by_date(projects)
         elif menu_choice == "A":
@@ -80,17 +81,49 @@ def save_projects(filename, projects):
             out_file.write(line)
 
 
-def display_projects(projects):
-    """Display incomplete and complete projects, sorted by priority"""
-    completed_projects = [project for project in projects if project.is_complete()]
-    incomplete_projects = [project for project in projects if not project.is_complete()]
+def get_valid_number_input(prompt, error_message, threshold):
+    is_valid_input = False
+    while not is_valid_input:
+        try:
+            num_input = float(input(prompt))
+            if num_input < threshold:
+                print(error_message)
+            else:
+                is_valid_input = True
+                return num_input
+        except ValueError:
+            print("Invalid (not an float)")
 
+
+def get_valid_date_input(prompt, error_message):
+    is_valid_input = False
+    while not is_valid_input:
+        try:
+            date_input = input(prompt)
+            if date_input != datetime.datetime.strptime(date_input, "%d/%m/%Y"):
+                print(error_message)
+            else:
+                is_valid_input = True
+                return date_input
+        except ValueError:
+            print("Invalid (not an date)")
+
+
+def display_projects(incomplete_projects, completed_projects):
+    """Display incomplete and complete projects, sorted by priority"""
     print("Incomplete projects:")
     for project in incomplete_projects:
         print(f"\t{project}")
     print("Completed Projects: ")
     for project in completed_projects:
         print(f"\t{project}")
+
+
+def sort_project_completion_status(projects):
+    """Sort the projects by complete and incomplete"""
+    completed_projects = [project for project in projects if project.is_complete()]
+    incomplete_projects = [project for project in projects if not project.is_complete()]
+    return incomplete_projects, completed_projects
 
 
 def filter_projects_by_date(projects):
@@ -116,10 +149,10 @@ def add_new_project(projects):
     """Add a new project to memory given inputs"""
     print("Let's add a new project")
     name = input("Name: ")
-    start_date = input("Start date (dd/mm/yy): ")
-    priority = input("Priority: ")
-    cost_estimate = input("Cost estimate: $")
-    completion_percentage = input("Percent complete: ")
+    start_date = get_valid_date_input("Start date (dd/mm/yy): ", )
+    priority = get_valid_number_input("Priority: ", "Cannot have negative priority number", 0)
+    cost_estimate = input("Cost estimate: $", "Cannot have negative cost", 0)
+    completion_percentage = input("Percent complete: ", "Cannot have negative percentage", 0)
     new_project = Project(name, start_date, priority, cost_estimate, completion_percentage)
     projects.append(new_project)
 
