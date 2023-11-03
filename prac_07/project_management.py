@@ -170,6 +170,7 @@ def filter_projects_by_date(projects):
                                        "Not a valid date, please try again")
 
     filtered_projects = [project for project in projects if project.start_date >= cutoff_date]
+    filtered_projects.sort()
 
     for project in filtered_projects:
         print(project)
@@ -180,11 +181,9 @@ def add_new_project(projects):
     print("Let's add a new project")
     name = input("Name: ")
     start_date = get_valid_date_input("Start date (dd/mm/yy): ", "Invalid format, please try again")
-    print(type(start_date))
     priority = get_valid_int_input("Priority: ", "Cannot have negative priority number", 0)
     cost_estimate = get_valid_float_input("Cost estimate: $", "Cannot have negative cost", 0)
     completion_percentage = get_valid_int_input("Percent complete: ", "Cannot have negative percentage", 0)
-    print(type(completion_percentage), type(priority))
     new_project = Project(name, start_date, priority, cost_estimate, completion_percentage)
     projects.append(new_project)
 
