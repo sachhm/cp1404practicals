@@ -6,7 +6,8 @@ Estimated: 2 hours
 Actual:
 
 """
-import datetime, operator
+import datetime
+import operator
 
 from prac_07.project import Project
 
@@ -65,7 +66,7 @@ def load_projects(filename):
             line = line.strip("\n")
             parts = line.split("\t")
             project_start_date = datetime.datetime.strptime(parts[PROJECT_DATE_INDEX], "%d/%m/%Y").date()
-            project = Project(parts[PROJECT_NAME_INDEX], project_start_date, parts[PROJECT_PRIORITY_INDEX],
+            project = Project(parts[PROJECT_NAME_INDEX], project_start_date, int(parts[PROJECT_PRIORITY_INDEX]),
                               float(parts[PROJECT_EST_COST_INDEX]), int(parts[PROJECT_COMPLETION_INDEX]))
             projects.append(project)
     return projects
@@ -84,6 +85,7 @@ def save_projects(filename, projects):
 
 
 def get_valid_float_input(prompt, error_message, threshold):
+    """Return a validated float input"""
     is_valid_input = False
     while not is_valid_input:
         try:
@@ -98,6 +100,7 @@ def get_valid_float_input(prompt, error_message, threshold):
 
 
 def get_valid_int_input(prompt, error_message, threshold):
+    """Return a validated integer input"""
     is_valid_input = False
     while not is_valid_input:
         try:
@@ -111,7 +114,26 @@ def get_valid_int_input(prompt, error_message, threshold):
             print("Invalid (not an integer)")
 
 
+def get_valid_updated_int_input(prompt, error_message, previous_value, threshold):
+    """Return a validated integer input for updating a project"""
+    is_valid_input = False
+    while not is_valid_input:
+        user_input = input(prompt)
+        if user_input == "":  # factors in the blank input
+            return previous_value
+        try:
+            user_input = int(user_input)
+            if user_input < threshold:
+                print(error_message)
+            else:
+                is_valid_input = True
+                return user_input
+        except ValueError:
+            print("Invalid (not an integer)")
+
+
 def get_valid_date_input(prompt, error_message):
+    """Return a checked and confirmed valid date"""
     is_valid_input = False
     while not is_valid_input:
         try:
@@ -162,6 +184,7 @@ def add_new_project(projects):
     priority = get_valid_int_input("Priority: ", "Cannot have negative priority number", 0)
     cost_estimate = get_valid_float_input("Cost estimate: $", "Cannot have negative cost", 0)
     completion_percentage = get_valid_int_input("Percent complete: ", "Cannot have negative percentage", 0)
+    print(type(completion_percentage), type(priority))
     new_project = Project(name, start_date, priority, cost_estimate, completion_percentage)
     projects.append(new_project)
 
@@ -174,13 +197,13 @@ def update_project(projects):
     project_choice_index = int(input("Project choice: "))
     chosen_project = projects[project_choice_index]
     print(chosen_project)
-    new_percentage = input("New percentage: ")
-    new_priority = input("New priority: ")
+    new_percentage = get_valid_updated_int_input("Percent complete: ", "Cannot have negative percentage",
+                                                 chosen_project.completion_percentage, 0)
+    new_priority = get_valid_updated_int_input("Priority: ", "Cannot have negative priority number",
+                                               chosen_project.priority, 0)
 
-    if new_percentage != "":
-        chosen_project.completion_percentage = int(new_percentage)
-    if new_priority != "":
-        chosen_project.priority = int(new_priority)
+    chosen_project.completion_percentage = new_percentage
+    chosen_project.priority = new_priority
 
 
 main()

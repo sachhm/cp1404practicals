@@ -31,7 +31,9 @@ class Project:
                 f"completion: {self.completion_percentage}%")
 
     def __lt__(self, other):
+        """Return whether the Project's start date is before another start date"""
         return self.start_date < other.start_date
 
     def is_complete(self):
+        """Return whether a Project is complete"""
         return self.completion_percentage == 100
