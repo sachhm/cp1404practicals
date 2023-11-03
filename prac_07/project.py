@@ -21,8 +21,9 @@ class Project:
 
     def __str__(self):
         """Return Project details in a formatted string"""
-        return (f"{self.name}, start:{self.start_date.strftime("%d/%m/%Y")}, priority {self.priority}, estimate: {self.cost_estimate}, "
-                f"completion: {self.completion_percentage}%")
+        return (
+            f"{self.name}, start: {self.start_date.strftime("%d/%m/%Y")}, priority {self.priority}, estimate: "
+            f"${self.cost_estimate:}, completion: {self.completion_percentage}%")
 
     def __repr__(self):
         """Return Project details in a formatted string for lists"""

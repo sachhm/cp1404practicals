@@ -6,7 +6,7 @@ Estimated: 2 hours
 Actual:
 
 """
-import datetime
+import datetime, operator
 
 from prac_07.project import Project
 
@@ -125,6 +125,8 @@ def get_valid_date_input(prompt, error_message):
 
 def display_projects(incomplete_projects, completed_projects):
     """Display incomplete and complete projects, sorted by priority"""
+    incomplete_projects.sort(key=operator.attrgetter('priority'))
+    completed_projects.sort(key=operator.attrgetter('priority'))
     print("Incomplete projects:")
     for project in incomplete_projects:
         print(f"\t{project}")
