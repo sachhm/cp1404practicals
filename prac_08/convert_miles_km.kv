@@ -15,7 +15,7 @@ BoxLayout:
 
     Button:
         text: 'Convert miles to km'
-        on_press: app.convert_distance(miles_input.text)
+        on_press: app.update_distance(miles_input.text)
     Label:
         id:output_label
         text: app.km_output

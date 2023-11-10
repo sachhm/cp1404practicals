@@ -8,21 +8,21 @@ from kivy.uix.label import Label
 
 
 class DynamicLabelsApp(App):
-    """Main program - Kivy app to demo dynamic label creation."""
+    """ Main program - Kivy app to demo dynamic label creation."""
 
     def __init__(self, **kwargs):
-        """Construct main app."""
+        """ Construct main app."""
         super().__init__(**kwargs)
         self.names = ["Lindsay", "Jason", "Osmond", "Bob", "Larry", "Steve"]
 
     def build(self):
-        """ build the Kivy app from the kv file """
+        """ Build the Kivy app from the kv file """
         self.title = "Dynamic Labels"
         self.root = Builder.load_file('dynamic_labels.kv')
         self.create_labels()
 
     def create_labels(self):
-        """Create labels from data and add them to the GUI."""
+        """ Create labels from data and add them to the GUI."""
         for name in self.names:
             temp_label = Label(text=name)
             print(name)
