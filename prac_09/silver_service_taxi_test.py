@@ -9,4 +9,4 @@ print(hummer)
 
 fancy_car = SilverServiceTaxi("Toyota 86", 100, 2)
 fancy_car.drive(18)
-print(f"For an 18km drive in a taxi with fanciness 2, the rate should be ${fancy_car.get_fare()} (yikes!)")
+print(f"For an 18km drive in a taxi with fanciness 2, the rate should be ${fancy_car.get_fare():.2f} (yikes!)")
