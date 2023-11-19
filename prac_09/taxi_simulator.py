@@ -34,6 +34,7 @@ def main():
         menu_choice = input("q)uit, c)hoose taxi, d)rive\n>>>").upper()
 
     print("Taxis are now: ")
+    print(f"Total trip cost: $ {bill_to_date:.2f}")
     display_taxis(taxis)
 
 
