@@ -7,6 +7,7 @@ from prac_09.taxi import Taxi
 
 
 def main():
+    """Main function for Taxi Simulator"""
     print("Let's drive!")
     menu_choice = input("q)uit, c)hoose taxi, d)rive\n>>>").upper()
 
@@ -37,11 +38,13 @@ def main():
 
 
 def display_taxis(taxis):
+    """Display taxis with index location in list"""
     for i, taxi in enumerate(taxis):
         print(f"{i} - {taxi}")
 
 
 def drive_taxi(taxi):
+    """Simulates driving a taxi"""
     distance = int(input("Drive how far?"))
     taxi.start_fare()
     taxi.drive(distance)
@@ -50,6 +53,7 @@ def drive_taxi(taxi):
 
 
 def get_valid_taxi(taxis):
+    """Returns a valid taxi given a choice"""
     try:
         taxi_choice = int(input("Choose taxi "))
         if taxi_choice < len(taxis):
