@@ -14,7 +14,7 @@ class Band:
         self.musicians = []
 
     def __str__(self):
-        return f"{self.name} is playing {self.musicians}"
+        return f"{self.name} {self.musicians}"
 
     def add(self, musician_name):
         """Add a musician"""
